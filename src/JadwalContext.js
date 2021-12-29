@@ -5,9 +5,11 @@ export const JadwalContext = createContext();
 
 const JadwalContextProvider = (props) => {
 
-  const dateNow = (new Date()).toISOString().split('T')[0];
+  // const dateNow = (new Date()).toISOString().split('T')[0];
 
-  const { error, isPending, data: jadwal } = useFetch(`https://jadwal-shalat-api.herokuapp.com/daily?date=${dateNow}&cityId=214`)
+  const url = 'https://api.myquran.com/v1/sholat/jadwal/1421/2021/12/29';
+
+  const { error, isPending, data: jadwal } = useFetch(url)
 
   return (
     <JadwalContext.Provider

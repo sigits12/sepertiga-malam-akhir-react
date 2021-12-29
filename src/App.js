@@ -1,19 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './App.css';
 import SepertigaMalam from './SepertigaMalam';
 import TableJadwalSholat from './TableJadwalSholat'
-import JadwalContextProvider from './JadwalContext';
+import { JadwalContext } from './JadwalContext';
 
 function App() {
+  const { error, isPending, jadwal } = useContext(JadwalContext);
 
   return (
     <div className="container">
-      <JadwalContextProvider>
-        <div style={{ marginBottom: '5px' }}>
-          <TableJadwalSholat />
-        </div>
-        <SepertigaMalam />
-      </JadwalContextProvider>
+      { error && <div>{error}</div>}
+      { isPending && <div>Loading...</div>}
+      { jadwal &&
+        <>
+          <div style={{ marginBottom: '5px' }}>
+            <TableJadwalSholat jadwal={jadwal} />
+          </div>
+          <SepertigaMalam jadwal={jadwal} />
+        </>
+      }
     </div>
 
   );
