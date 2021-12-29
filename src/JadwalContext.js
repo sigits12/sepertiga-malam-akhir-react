@@ -5,9 +5,9 @@ export const JadwalContext = createContext();
 
 const JadwalContextProvider = (props) => {
 
-  // const dateNow = (new Date()).toISOString().split('T')[0];
+  const dateNow = new Date().getFullYear()+'/'+(new Date().getMonth()+1)+'/'+new Date().getDate();
 
-  const url = 'https://api.myquran.com/v1/sholat/jadwal/1421/2021/12/29';
+  const url = `https://api.myquran.com/v1/sholat/jadwal/1421/${dateNow}`;
 
   const { error, isPending, data: jadwal } = useFetch(url)
 
