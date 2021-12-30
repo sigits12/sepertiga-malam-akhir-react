@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import useFetch from "../useFetch";
-import { JadwalContext } from '../JadwalContext';
+import useFetch from "../utils/useFetch";
+import { JadwalContext } from '../utils/JadwalContext';
 
 const Search = () => {
 
@@ -22,7 +22,7 @@ const Search = () => {
   }
 
   return (
-    <>
+    <div>
       { error && <div>{error}</div>}
       { isPending && <div>Loading...</div>}
       { lokasi &&
@@ -37,7 +37,7 @@ const Search = () => {
           <div id="resultID"></div>
         </div>
       }
-    </>
+    </div>
   )
 }
 

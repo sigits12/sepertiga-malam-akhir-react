@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import './App.css';
-import SepertigaMalam from './SepertigaMalam';
-import TableJadwalSholat from './TableJadwalSholat'
+import SepertigaMalam from './components/SepertigaMalam';
+import TableJadwalSholat from './components/TableJadwalSholat'
 import Search from './components/Search';
-import { JadwalContext } from './JadwalContext';
+import { JadwalContext } from './utils/JadwalContext';
 
 function App() {
   const { error, isPending, jadwal } = useContext(JadwalContext);

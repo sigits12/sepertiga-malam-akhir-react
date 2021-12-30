@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import JadwalContextProvider from './JadwalContext';
+import JadwalContextProvider from './utils/JadwalContext';
 
 ReactDOM.render(
   <React.StrictMode>
