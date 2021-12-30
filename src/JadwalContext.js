@@ -1,22 +1,29 @@
-import React, { createContext } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import useFetch from "./useFetch";
 
 export const JadwalContext = createContext();
 
 const JadwalContextProvider = (props) => {
 
-  const dateNow = new Date().getFullYear()+'/'+(new Date().getMonth()+1)+'/'+new Date().getDate();
+  const [idLokasi, setIdLokasi] = useState('1301');
 
-  const url = `https://api.myquran.com/v1/sholat/jadwal/1421/${dateNow}`;
+  const dateNow = new Date().getFullYear() + '/' + (new Date().getMonth() + 1) + '/' + new Date().getDate();
 
-  const { error, isPending, data: jadwal } = useFetch(url)
+  const url = `https://api.myquran.com/v1/sholat/jadwal/${idLokasi}/${dateNow}`;
+  const { error, isPending, data: jadwal } = useFetch(url);
+
+
+  useEffect(() => {
+    setIdLokasi(idLokasi);
+  }, [idLokasi]);
 
   return (
     <JadwalContext.Provider
       value={{
-        error, 
+        setIdLokasi,
+        error,
         isPending,
-        jadwal
+        jadwal,
       }}
     >
       {props.children}

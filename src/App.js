@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import './App.css';
 import SepertigaMalam from './SepertigaMalam';
 import TableJadwalSholat from './TableJadwalSholat'
+import Search from './components/Search';
 import { JadwalContext } from './JadwalContext';
 
 function App() {
@@ -14,9 +15,10 @@ function App() {
       { jadwal &&
         <>
           <div style={{ marginBottom: '5px' }}>
-            <TableJadwalSholat jadwal={jadwal} />
+            <Search />
+            <TableJadwalSholat jadwal={jadwal.data} />
           </div>
-          <SepertigaMalam jadwal={jadwal} />
+          <SepertigaMalam jadwal={jadwal.data} />
         </>
       }
     </div>
