@@ -28,7 +28,7 @@ const Search = () => {
       { lokasi &&
         <div>
           <label>Pilih Kota/Kabupaten</label>
-          <input list="kota" type="text" id="inputLokasi" onChange={handleChange} />
+          <input className="border shadow-sm border-gray-300 " list="kota" type="text" id="inputLokasi" onChange={handleChange} />
           <datalist id="kota">
             {lokasi.map((loc, key) => {
               return <option key={key} value={loc.id}>{loc.lokasi}</option>

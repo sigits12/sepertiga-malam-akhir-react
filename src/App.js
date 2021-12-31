@@ -14,11 +14,17 @@ function App() {
       { isPending && <div>Loading...</div>}
       { jadwal &&
         <>
-          <div style={{ marginBottom: '5px' }}>
-            <Search />
-            <TableJadwalSholat jadwal={jadwal.data} />
+          <div className="flex flex-col justify-center items-center h-screen">
+            <div className="mx-auto max-w-3xl p-4 shadow-lg rounded">
+              <div className="text-center">
+                <div style={{ marginBottom: '5px' }}>
+                  <Search />
+                  <TableJadwalSholat jadwal={jadwal.data} />
+                </div>
+                <SepertigaMalam jadwal={jadwal.data} />
+              </div>
+            </div>
           </div>
-          <SepertigaMalam jadwal={jadwal.data} />
         </>
       }
     </div>
