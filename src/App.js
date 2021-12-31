@@ -9,24 +9,26 @@ function App() {
   const { error, isPending, jadwal } = useContext(JadwalContext);
 
   return (
-    <div className="container">
-      { error && <div>{error}</div>}
-      { isPending && <div>Loading...</div>}
-      { jadwal &&
-        <>
-          <div className="flex flex-col justify-center items-center h-screen">
-            <div className="mx-auto max-w-3xl p-4 shadow-lg rounded">
-              <div className="text-center">
-                <div style={{ marginBottom: '5px' }}>
-                  <Search />
-                  <TableJadwalSholat jadwal={jadwal.data} />
+    <div className="bg-gray-900">
+      <div className="container">
+        {error && <div>{error}</div>}
+        {isPending && <div>Loading...</div>}
+        {jadwal &&
+          <>
+            <div className="flex flex-col justify-center items-center h-screen ">
+              <div className="mx-auto max-w-3xl p-4 shadow-lg rounded bg-gray-50">
+                <div className="text-center">
+                  <div style={{ marginBottom: '5px' }}>
+                    <Search />
+                    <TableJadwalSholat jadwal={jadwal.data} />
+                  </div>
+                  <SepertigaMalam jadwal={jadwal.data} />
                 </div>
-                <SepertigaMalam jadwal={jadwal.data} />
               </div>
             </div>
-          </div>
-        </>
-      }
+          </>
+        }
+      </div>
     </div>
 
   );
