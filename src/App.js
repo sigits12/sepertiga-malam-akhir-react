@@ -3,6 +3,7 @@ import './App.css';
 import SepertigaMalam from './components/SepertigaMalam';
 import TableJadwalSholat from './components/TableJadwalSholat'
 import Search from './components/Search';
+import NextSholat from './components/NextSholat';
 import { JadwalContext } from './utils/JadwalContext';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
                     <TableJadwalSholat jadwal={jadwal.data} />
                   </div>
                   <SepertigaMalam jadwal={jadwal.data} />
+                  <NextSholat jadwal={jadwal.data} />
                 </div>
               </div>
             </div>
