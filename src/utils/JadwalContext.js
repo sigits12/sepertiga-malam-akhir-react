@@ -5,7 +5,7 @@ export const JadwalContext = createContext();
 
 const JadwalContextProvider = (props) => {
 
-  const [idLokasi, setIdLokasi] = useState('1301');
+  const [idLokasi, setIdLokasi] = useState('1421');
 
   const dateNow = new Date().getFullYear() + '/' + (new Date().getMonth() + 1) + '/' + new Date().getDate();
 
