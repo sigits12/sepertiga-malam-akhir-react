@@ -4,67 +4,55 @@ const NextSholat = (props) => {
 
   const jadwal = props.jadwal;
 
-  const [sholat, setSholat] = useState('');
+  const [sholat, setSholat] = useState([]);
   const [timer, setTimer] = useState('');
 
   const getSholat = () => {
 
-    const tanggal = jadwal.jadwal.date.split("-");
-    const times = [];
-
     const prays = ['ashar', 'dzuhur', 'isya', 'maghrib', 'subuh'];
     const prayerTimes = Object.fromEntries(Object.entries(jadwal.jadwal).filter(([key]) => prays.includes(key)));
 
-    Object.entries(prayerTimes).map(([key, value]) => times.push(value));
-    // prayerTimes.map(([sholat, value]) => {
-    //   console.log(sholat);
-    // })
+    const sortedTimes = [];
+    Object.entries(prayerTimes).map(([key, value]) => {
+      const t = value.split(':')
+      let diff = new Date().setHours(t[0], t[1], 0) - new Date();
+      let hours = Math.floor(diff / 1000 / 60 / 60);
+      diff -= hours * 1000 * 60 * 60;
+      let minutes = Math.floor(diff / 1000 / 60);
+      sortedTimes.push({ sholat: key, hours: hours, minutes: minutes, diff: diff });
+    })
 
-    // const date1 = new Date(tanggal[0], tanggal[1]-1, tanggal[2],  );
-    // const now = new Date(2000, 0, 1)
-
-    const currentTime = new Date();
-    const timeDiff = [];
-
-    times.filter(time => {
-      // const _meridianPosition = time.indexOf('AM') > -1 ? 'AM' : 'PM';
-
-      let _time = parseInt(time);
-      let _time1 = parseInt('19:40');
-      // }
-      // console.log(currentTime.getHours() - _time)
-      const k = Math.abs(currentTime.getHours() - _time);
-      timeDiff.push({ hour: time, diff: k });
+    sortedTimes.sort((a, b) => {
+      if (a.hours < 0) return 1;
+      else if (b.hours < 0) return -1;
+      else return a.hours - b.hours;
     });
 
-    timeDiff.sort((a, b) => {
-      return a.diff - b.diff;
-    });
-
-    console.log(timeDiff[0].hour);
-
-
+    setSholat(sortedTimes[0]);
+    refreshTime(sortedTimes[0]);
   }
 
-  const refreshTime = () => {
+  const refreshTime = (jadwal) => {
 
-    const now = new Date();
-    const hour = now.getHours();
-    const minute = now.getMinutes();
-    const second = now.getSeconds();
+    let diff = new Date() - new Date().setHours(jadwal.hours, jadwal.minutes, 0);
 
-    const formattedString = `${hour} : ${minute} : ${second}`;
-    setTimer(formattedString)
+    let hours = Math.floor(diff / 1000 / 60 / 60);
+    console.log(hours, diff)
+    diff -= hours * 1000 * 60 * 60;
+    let minutes = Math.floor(diff / 1000 / 60);
+    
+    const formattedString = `${hours} : ${minutes}`;
+    // setTimer(formattedString)
   }
 
-  setInterval(refreshTime, 1000);
+  // setInterval(refreshTime, 1000);
 
   useEffect(() => {
     getSholat();
   }, []);
 
   return (
-    <p>Sholat selanjutnya :  {sholat} dalam {timer} </p>
+    <div>Sholat selanjutnya :  < p className="capitalize">{sholat.sholat}</p> dalam {timer} </div>
   )
 }
 
