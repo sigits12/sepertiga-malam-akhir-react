@@ -20,6 +20,7 @@ const NextSholat = (props) => {
       diff -= hours * 1000 * 60 * 60;
       let minutes = Math.floor(diff / 1000 / 60);
       sortedTimes.push({ sholat: key, hours: hours, minutes: minutes, diff: diff });
+      return 0;
     })
 
     sortedTimes.sort((a, b) => {
@@ -34,18 +35,12 @@ const NextSholat = (props) => {
 
   const refreshTime = (jadwal) => {
 
-    let diff = new Date() - new Date().setHours(jadwal.hours, jadwal.minutes, 0);
+    let result = jadwal.hours+ ":" + jadwal.minutes
 
-    let hours = Math.floor(diff / 1000 / 60 / 60);
-    console.log(hours, diff)
-    diff -= hours * 1000 * 60 * 60;
-    let minutes = Math.floor(diff / 1000 / 60);
-    
-    const formattedString = `${hours} : ${minutes}`;
-    // setTimer(formattedString)
+    setTimer(result)
   }
 
-  // setInterval(refreshTime, 1000);
+  setInterval(getSholat, 60000);
 
   useEffect(() => {
     getSholat();
