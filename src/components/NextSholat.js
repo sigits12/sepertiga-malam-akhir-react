@@ -52,7 +52,7 @@ const NextSholat = (props) => {
   }, []);
 
   return (
-    <div>Sholat selanjutnya :  < p className="capitalize">{sholat.sholat}</p> dalam {timer} </div>
+    <div>Sholat selanjutnya :  < p className="capitalize">{sholat.sholat}</p> {timer} </div>
   )
 }
 
