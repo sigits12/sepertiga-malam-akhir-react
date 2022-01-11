@@ -1,14 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import useFetch from "../utils/useFetch";
-import { JadwalContext } from '../utils/JadwalContext';
 
-const Search = () => {
+const Search = (props) => {
 
   const url = `https://api.myquran.com/v1/sholat/kota/semua`;
 
   const { error, isPending, data: lokasi } = useFetch(url);
-
-  const { setIdLokasi } = useContext(JadwalContext);
 
   function handleChange(event) {
 
@@ -16,7 +13,7 @@ const Search = () => {
     const opt = [].find.call(event.target.list.options, o => o.value === value);
 
     if (opt) {
-      setIdLokasi(value);
+      props.setSearchValue(value);
       event.target.value = opt.textContent;
     }
   }
@@ -36,17 +33,6 @@ const Search = () => {
             })}
           </datalist>
         </label>
-
-        // <div>
-        //   <label>Pilih Kota/Kabupaten</label>
-        //   <input className="border shadow-sm border-gray-300 " list="kota" type="text" id="inputLokasi" onChange={handleChange} />
-        //   <datalist id="kota">
-        //     {lokasi.map((loc, key) => {
-        //       return <option key={key} value={loc.id}>{loc.lokasi}</option>
-        //     })}
-        //   </datalist>
-        //   <div id="resultID"></div>
-        // </div>
       }
     </div>
   )

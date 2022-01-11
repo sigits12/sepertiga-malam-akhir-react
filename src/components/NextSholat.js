@@ -4,50 +4,61 @@ const NextSholat = (props) => {
 
   const jadwal = props.jadwal;
 
-  const [sholat, setSholat] = useState([]);
-  const [timer, setTimer] = useState('');
+  const prays = ['ashar', 'dzuhur', 'isya', 'maghrib', 'subuh'];
 
-  const getSholat = () => {
+  const prayerTimes = Object.fromEntries(Object.entries(jadwal.jadwal).filter(([key]) => prays.includes(key)));
 
-    const prays = ['ashar', 'dzuhur', 'isya', 'maghrib', 'subuh'];
-    const prayerTimes = Object.fromEntries(Object.entries(jadwal.jadwal).filter(([key]) => prays.includes(key)));
+  const calculateTimeLeft = () => {
+    let timeLeft = [];
 
-    const sortedTimes = [];
-    Object.entries(prayerTimes).map(([key, value]) => {
-      const t = value.split(':')
+    for (const property in prayerTimes) {
+      const t = prayerTimes[property].split(':')
       let diff = new Date().setHours(t[0], t[1], 0) - new Date();
-      let hours = Math.floor(diff / 1000 / 60 / 60);
-      diff -= hours * 1000 * 60 * 60;
-      let minutes = Math.floor(diff / 1000 / 60);
-      sortedTimes.push({ sholat: key, hours: hours, minutes: minutes, diff: diff });
-      return 0;
-    })
 
-    sortedTimes.sort((a, b) => {
-      if (a.hours < 0) return 1;
-      else if (b.hours < 0) return -1;
-      else return a.hours - b.hours;
+      timeLeft.push({
+        jam: Math.floor((diff / (1000 * 60 * 60)) % 24),
+        menit: Math.floor((diff / 1000 / 60) % 60),
+        sholat: property
+      });
+    }
+
+    timeLeft.sort((a, b) => {
+      if (a.jam < 0) return 1;
+      else if (b.jam < 0) return -1;
+      else return a.jam - b.jam;
     });
-
-    setSholat(sortedTimes[0]);
-    refreshTime(sortedTimes[0]);
+    return timeLeft;
   }
 
-  const refreshTime = (jadwal) => {
-
-    let result = jadwal.hours+ ":" + jadwal.minutes
-
-    setTimer(result)
-  }
-
-  setInterval(getSholat, 60000);
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
   useEffect(() => {
-    getSholat();
-  }, []);
+    const timer = setTimeout(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
+    return () => clearTimeout(timer);
+  });
+
+  const timerComponents = [];
+
+  Object.keys(timeLeft[0]).forEach((interval, key) => {
+    if (interval !== 'sholat') {
+      if (!timeLeft[0][interval]) {
+        return;
+      }
+      timerComponents.push(
+        <span key={key}>
+          {timeLeft[0][interval]} {interval}{" "}
+        </span>
+      );
+    }
+  });
 
   return (
-    <div>Sholat selanjutnya :  < p className="capitalize">{sholat.sholat}</p> {timer} </div>
+    <div>
+      <div>Sholat selanjutnya :  < p className="capitalize">{timeLeft[0].sholat}</p> dalam </div>
+      {timerComponents.length ? timerComponents : <span>Time's up!</span>}
+    </div>
   )
 }
 
