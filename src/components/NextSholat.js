@@ -17,7 +17,7 @@ const NextSholat = (props) => {
 
       timeLeft.push({
         jam: Math.floor((diff / (1000 * 60 * 60)) % 24),
-        menit: Math.floor((diff / 1000 / 60) % 60),
+        menit: Math.ceil((diff / 1000 / 60) % 60),
         sholat: property
       });
     }
