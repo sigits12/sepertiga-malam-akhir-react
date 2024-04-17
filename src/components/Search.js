@@ -3,7 +3,7 @@ import useFetch from "../utils/useFetch";
 
 const Search = (props) => {
 
-  const url = `https://api.myquran.com/v1/sholat/kota/semua`;
+  const url = `https://api.myquran.com/v2/sholat/kota/semua`;
 
   const { error, isPending, data: lokasi } = useFetch(url);
 
