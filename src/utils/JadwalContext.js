@@ -9,7 +9,7 @@ const JadwalContextProvider = (props) => {
 
   const dateNow = new Date().getFullYear() + '/' + (new Date().getMonth() + 1) + '/' + new Date().getDate();
 
-  const url = `https://api.myquran.com/v1/sholat/jadwal/${idLokasi}/${dateNow}`;
+  const url = `https://api.myquran.com/v2/sholat/jadwal/${idLokasi}/${dateNow}`;
   const { error, isPending, data: jadwal } = useFetch(url);
 
 
