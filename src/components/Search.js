@@ -28,7 +28,7 @@ const Search = (props) => {
           <span className="sr-only block text-sm font-medium text-gray-700">Search</span>
           <input className="placeholder:italic placeholder:text-gray-400 block bg-white w-full border border-gray-300 rounded-md py-2 pl-3 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" placeholder="Cari Kota..." type="text" name="search" list="kota" id="inputLokasi" onChange={handleChange} />
           <datalist id="kota">
-            {lokasi.map((loc, key) => {
+            {lokasi.data.map((loc, key) => {
               return <option key={key} value={loc.id}>{loc.lokasi}</option>
             })}
           </datalist>
