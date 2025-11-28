@@ -35,7 +35,7 @@ const Sepertigamalam = (props) => {
   return (
     <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
       <div>
-        <label htmlFor="result" style={{ marginRight: '10px' }}>Sepertiga malam akhir dimulai pukul : </label>
+        <label htmlFor="result" style={{ marginRight: '10px' }}>Sepertiga malam akhir dimulai pada pukul : </label>
         <p id="result">{result}</p>
       </div>
     </div>
